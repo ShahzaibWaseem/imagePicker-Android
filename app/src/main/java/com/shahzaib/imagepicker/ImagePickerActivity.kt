@@ -4,11 +4,13 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.imagepicker.databinding.ImagePickerActivityBinding
+
 
 class ImagePickerActivity: AppCompatActivity() {
     private lateinit var binding: ImagePickerActivityBinding
@@ -22,19 +24,36 @@ class ImagePickerActivity: AppCompatActivity() {
         binding = ImagePickerActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sampleBitmap = BitmapFactory.decodeResource(resources, R.mipmap.sample_image)
-
-        imageList.add(sampleBitmap)
-        imageList.add(sampleBitmap)
-
-
-        binding.btnSubmit.setOnClickListener{
+        binding.layoutCamera.setOnClickListener{
             viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
+            openCameraIntent()
             recyclerView.adapter = viewAdapter
         }
 
         recyclerView = binding.recyclerList.apply {
-            layoutManager = GridLayoutManager(this@ImagePickerActivity, 3, LinearLayoutManager.VERTICAL,false)
+            layoutManager = GridLayoutManager(this@ImagePickerActivity,3,
+                LinearLayoutManager.VERTICAL,false)
         }
+    }
+
+    private fun openCameraIntent() {
+        val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (pictureIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if (data != null && data.extras != null) {
+                val imageBitmap: Bitmap = data.extras!!.get("data") as Bitmap
+                imageList.add(imageBitmap)
+            }
+        }
+    }
+
+    companion object {
+        const val REQUEST_IMAGE_CAPTURE = 1
     }
 }
