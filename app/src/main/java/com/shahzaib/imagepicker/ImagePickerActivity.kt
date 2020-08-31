@@ -3,6 +3,7 @@ package com.shahzaib.imagepicker
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.imagepicker.databinding.ImagePickerActivityBinding
+import java.io.File
 
 
 class ImagePickerActivity: AppCompatActivity() {
@@ -27,7 +29,11 @@ class ImagePickerActivity: AppCompatActivity() {
         binding.layoutCamera.setOnClickListener{
             viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
             openCameraIntent()
-            recyclerView.adapter = viewAdapter
+        }
+
+        binding.layoutGallery.setOnClickListener{
+            viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
+            openGalleryIntent()
         }
 
         recyclerView = binding.recyclerList.apply {
@@ -49,11 +55,26 @@ class ImagePickerActivity: AppCompatActivity() {
             if (data != null && data.extras != null) {
                 val imageBitmap: Bitmap = data.extras!!.get("data") as Bitmap
                 imageList.add(imageBitmap)
+                recyclerView.adapter = viewAdapter
+            }
+        }
+        if (requestCode == REQUEST_GALLERY_IMAGES && resultCode == RESULT_OK) {
+            if (data != null) {
+                val imageUri: Uri? = data.data
+                val imageBitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                imageList.add(imageBitmap)
+                recyclerView.adapter = viewAdapter
             }
         }
     }
 
+    private fun openGalleryIntent() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGES)
+    }
+
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_GALLERY_IMAGES = 2
     }
 }
