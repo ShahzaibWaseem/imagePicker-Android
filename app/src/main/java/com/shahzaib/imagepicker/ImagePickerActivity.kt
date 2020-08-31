@@ -48,7 +48,9 @@ class ImagePickerActivity: AppCompatActivity() {
 
     private fun openGalleryIntent() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGES)
+        if (galleryIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGES)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,6 +62,7 @@ class ImagePickerActivity: AppCompatActivity() {
                 recyclerView.adapter = viewAdapter
             }
         }
+
         if (requestCode == REQUEST_GALLERY_IMAGES && resultCode == RESULT_OK) {
             if (data != null) {
                 val imageUri: Uri? = data.data
@@ -73,5 +76,6 @@ class ImagePickerActivity: AppCompatActivity() {
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
         const val REQUEST_GALLERY_IMAGES = 2
+        const val REQUEST_FILE_IMAGES = 3
     }
 }
