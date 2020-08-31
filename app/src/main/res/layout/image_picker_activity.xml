@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutIcons"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/horizontalLine1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCamera"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/layoutGallery"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/cameraIcon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera_attachment"
+                app:tint="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camera"
+                android:textColor="?attr/colorAccent"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/cameraIcon"
+                app:layout_constraintStart_toStartOf="@+id/cameraIcon"
+                app:layout_constraintEnd_toEndOf="@+id/cameraIcon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/verticalLine1"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/grey_10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/layoutCamera"
+            app:layout_constraintEnd_toStartOf="@+id/layoutGallery"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutGallery"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/layoutCamera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/galleryIcon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gallery_attachment"
+                app:tint="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camera"
+                android:layout_marginTop="5dp"
+                android:textColor="?attr/colorAccent"
+                app:layout_constraintTop_toBottomOf="@+id/galleryIcon"
+                app:layout_constraintStart_toStartOf="@+id/galleryIcon"
+                app:layout_constraintEnd_toEndOf="@+id/galleryIcon"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/horizontalLine1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10"
+        app:layout_constraintTop_toBottomOf="@+id/layoutIcons"
+        app:layout_constraintBottom_toTopOf="@+id/testAttachments"/>
+
+    <TextView
+        android:id="@+id/testAttachments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Attachments"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLine1"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalLine2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:textSize="16sp"/>
+
+    <View
+        android:id="@+id/horizontalLine2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10"
+        app:layout_constraintTop_toBottomOf="@+id/testAttachments"
+        app:layout_constraintBottom_toTopOf="@+id/addFileLayout"/>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addFileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLine2">
+
+        <ImageView
+            android:id="@+id/addFileIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_file"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="20dp"
+            app:tint="?attr/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/addFileText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add File"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:textColor="?attr/colorAccent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addFileIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/horizontalLine3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10"
+        app:layout_constraintTop_toBottomOf="@id/addFileLayout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recyclerListConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="10dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toBottomOf="@+id/addFileLayout"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="110dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Submit"
+        android:textAllCaps="true"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:textColor="?attr/colorAccent"
+        app:strokeColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cornerRadius="24dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
