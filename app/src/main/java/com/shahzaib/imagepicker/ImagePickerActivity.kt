@@ -33,6 +33,11 @@ class ImagePickerActivity: AppCompatActivity() {
             openGalleryIntent()
         }
 
+        binding.addFileLayout.setOnClickListener {
+            viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
+            openFileExplorerIntent()
+        }
+
         recyclerView = binding.recyclerList.apply {
             layoutManager = GridLayoutManager(this@ImagePickerActivity,3,
                 LinearLayoutManager.VERTICAL,false)
@@ -53,6 +58,14 @@ class ImagePickerActivity: AppCompatActivity() {
         }
     }
 
+    private fun openFileExplorerIntent() {
+        val fileIntent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        fileIntent.type = "image/*"
+        if (fileIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(fileIntent, REQUEST_FILE_IMAGES)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -64,6 +77,15 @@ class ImagePickerActivity: AppCompatActivity() {
         }
 
         if (requestCode == REQUEST_GALLERY_IMAGES && resultCode == RESULT_OK) {
+            if (data != null) {
+                val imageUri: Uri? = data.data
+                val imageBitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                imageList.add(imageBitmap)
+                recyclerView.adapter = viewAdapter
+            }
+        }
+
+        if (requestCode == REQUEST_FILE_IMAGES && resultCode == RESULT_OK) {
             if (data != null) {
                 val imageUri: Uri? = data.data
                 val imageBitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
