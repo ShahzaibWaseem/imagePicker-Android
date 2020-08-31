@@ -2,7 +2,6 @@ package com.shahzaib.imagepicker
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shahzaib.imagepicker.databinding.ImagePickerActivityBinding
-import java.io.File
-
 
 class ImagePickerActivity: AppCompatActivity() {
     private lateinit var binding: ImagePickerActivityBinding
@@ -49,6 +46,11 @@ class ImagePickerActivity: AppCompatActivity() {
         }
     }
 
+    private fun openGalleryIntent() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGES)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -66,11 +68,6 @@ class ImagePickerActivity: AppCompatActivity() {
                 recyclerView.adapter = viewAdapter
             }
         }
-    }
-
-    private fun openGalleryIntent() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGES)
     }
 
     companion object {
