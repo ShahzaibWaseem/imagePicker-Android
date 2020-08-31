@@ -23,6 +23,11 @@ class ImagePickerActivity: AppCompatActivity() {
         binding = ImagePickerActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        recyclerView = binding.recyclerList.apply {
+            layoutManager = GridLayoutManager(this@ImagePickerActivity,3,
+                LinearLayoutManager.VERTICAL,false)
+        }
+
         binding.layoutCamera.setOnClickListener{
             viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
             openCameraIntent()
@@ -36,11 +41,6 @@ class ImagePickerActivity: AppCompatActivity() {
         binding.addFileLayout.setOnClickListener {
             viewAdapter = ImageRecyclerAdapter(imageList, this@ImagePickerActivity)
             openFileExplorerIntent()
-        }
-
-        recyclerView = binding.recyclerList.apply {
-            layoutManager = GridLayoutManager(this@ImagePickerActivity,3,
-                LinearLayoutManager.VERTICAL,false)
         }
     }
 
