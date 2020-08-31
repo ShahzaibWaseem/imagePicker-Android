@@ -2,7 +2,10 @@ package com.shahzaib.imagepicker
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.graphics.ImageDecoder.decodeBitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
@@ -79,7 +82,12 @@ class ImagePickerActivity: AppCompatActivity() {
         if (requestCode == REQUEST_GALLERY_IMAGES && resultCode == RESULT_OK) {
             if (data != null) {
                 val imageUri: Uri? = data.data
-                val imageBitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                val imageBitmap: Bitmap
+                imageBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    decodeBitmap(ImageDecoder.createSource(this.contentResolver, imageUri!!))
+                } else {
+                    MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                }
                 imageList.add(imageBitmap)
                 recyclerView.adapter = viewAdapter
             }
@@ -88,7 +96,12 @@ class ImagePickerActivity: AppCompatActivity() {
         if (requestCode == REQUEST_FILE_IMAGES && resultCode == RESULT_OK) {
             if (data != null) {
                 val imageUri: Uri? = data.data
-                val imageBitmap= MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                val imageBitmap: Bitmap
+                imageBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    decodeBitmap(ImageDecoder.createSource(this.contentResolver, imageUri!!))
+                } else {
+                    MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                }
                 imageList.add(imageBitmap)
                 recyclerView.adapter = viewAdapter
             }
