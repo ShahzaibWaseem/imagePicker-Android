@@ -12,5 +12,4 @@ The application is written in Kotlin and handles intents for choosing images for
     - Recycler View Version 1.1.0
 
 ### APK File
-Click this link to download [app-debug.apk](https://github.com/ShahzaibWaseem/
-imagePicker-Android/blob/master/app/build/outputs/apk/debug/app-debug.apk).
+Click this link to download [app-debug.apk](https://github.com/ShahzaibWaseem/imagePicker-Android/blob/master/app/build/outputs/apk/debug/app-debug.apk).
